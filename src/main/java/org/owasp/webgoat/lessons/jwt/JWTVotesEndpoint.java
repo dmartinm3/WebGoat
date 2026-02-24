@@ -69,12 +69,12 @@ import org.springframework.web.bind.annotation.RestController;
 })
 public class JWTVotesEndpoint extends AssignmentEndpoint {
 
-
+  public static final String JWT_SECRET_ENV = "WEBGOAT_JWT_SECRET";
   
   private static byte[] getJwtSecret() {
-    String secret = System.getenv("WEBGOAT_JWT_SECRET");
+    String secret = System.getenv("JWT_SECRET_ENV");
     if (secret == null || secret.isBlank()) {
-        throw new IllegalStateException("Missing env var WEBGOAT_JWT_SECRET");
+        throw new IllegalStateException("Missing env var" + JWT_SECRET_ENV);
     }
     return secret.getBytes(StandardCharsets.UTF_8);
   }
