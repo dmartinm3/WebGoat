@@ -24,7 +24,6 @@ package org.owasp.webgoat.lessons.jwt;
 
 import static java.util.Comparator.comparingLong;
 import static java.util.Optional.ofNullable;
-import static java.util.stream.Collectors.toList;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwt;
@@ -149,7 +148,8 @@ public class JWTVotesEndpoint extends AssignmentEndpoint {
         new MappingJacksonValue(
             votes.values().stream()
                 .sorted(comparingLong(Vote::getAverage).reversed())
-                .collect(toList()));
+                .toList());
+                
     if (StringUtils.isEmpty(accessToken)) {
       value.setSerializationView(Views.GuestView.class);
     } else {
