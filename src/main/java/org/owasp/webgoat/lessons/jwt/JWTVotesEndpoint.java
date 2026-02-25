@@ -72,7 +72,7 @@ public class JWTVotesEndpoint extends AssignmentEndpoint {
   public static final String JWT_SECRET_ENV = "WEBGOAT_JWT_SECRET";
   
   private static byte[] getJwtSecret() {
-    String secret = System.getenv("JWT_SECRET_ENV");
+    String secret = System.getenv(JWT_SECRET_ENV);
     if (secret == null || secret.isBlank()) {
         throw new IllegalStateException("Missing env var" + JWT_SECRET_ENV);
     }

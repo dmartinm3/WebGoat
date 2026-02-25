@@ -33,4 +33,5 @@ jobs:
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          WEBGOAT_JWT_SECRET: ${{ secrets.WEBGOAT_JWT_SECRET }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=dmartinm3_WebGoat
