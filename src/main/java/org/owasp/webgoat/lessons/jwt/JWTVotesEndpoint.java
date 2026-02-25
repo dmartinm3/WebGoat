@@ -31,6 +31,8 @@ import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.impl.TextCodec;
+
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.Instant;
@@ -70,13 +72,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class JWTVotesEndpoint extends AssignmentEndpoint {
 
   public static final String JWT_SECRET_ENV = "WEBGOAT_JWT_SECRET";
+  public static final String JWT_PASSWORD;
   
-  private static byte[] getJwtSecret() {
+  static {
     String secret = System.getenv(JWT_SECRET_ENV);
     if (secret == null || secret.isBlank()) {
         throw new IllegalStateException("Missing env var" + JWT_SECRET_ENV);
     }
-    return secret.getBytes(StandardCharsets.UTF_8);
+    JWT_PASSWORD = TextCodec.BASE64.encode(secret);
+  }
+
+  private static byte[] getJwtSecret() {
+    return JWT_PASSWORD.getBytes(StandardCharsets.UTF_8);
   }
 
   private static String validUsers = "TomJerrySylvester";
